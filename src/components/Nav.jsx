@@ -80,13 +80,13 @@ export default function Nav() {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="font-mono text-sm sm:text-base font-semibold text-text tracking-tight"
+          className="font-mono text-sm sm:text-base font-semibold text-text tracking-tight whitespace-nowrap"
         >
           <span className="text-accent">~/</span>
           {profile.shortName.toLowerCase().replace(/\s+/g, "-")}
         </a>
 
-        <ul className="hidden md:flex items-center gap-8 font-mono text-sm">
+        <ul className="hidden lg:flex items-center gap-4 xl:gap-8 font-mono text-sm whitespace-nowrap ml-4">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
@@ -105,7 +105,7 @@ export default function Nav() {
           ))}
         </ul>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3 shrink-0 ml-4">
           <ThemeToggle theme={theme} onToggle={toggleTheme} />
           <a
             href="#contact"
@@ -113,13 +113,13 @@ export default function Nav() {
               e.preventDefault();
               handleNavClick("#contact");
             }}
-            className="inline-flex items-center rounded-md border border-accent/40 px-4 py-1.5 font-mono text-sm text-accent hover:bg-accent hover:text-bg transition-colors duration-200"
+            className="inline-flex items-center rounded-md border border-accent/40 px-4 py-1.5 font-mono text-sm text-accent hover:bg-accent hover:text-bg transition-colors duration-200 whitespace-nowrap"
           >
             Say hello
           </a>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden -mr-2">
+        <div className="flex items-center gap-2 lg:hidden -mr-2">
           <ThemeToggle theme={theme} onToggle={toggleTheme} />
           <button
             className="text-text p-2"
@@ -141,7 +141,7 @@ export default function Nav() {
       </nav>
 
       {open && (
-        <div className="md:hidden bg-bg-soft border-t border-border-soft">
+        <div className="lg:hidden bg-bg-soft border-t border-border-soft">
           <ul className="flex flex-col px-6 py-4 gap-4 font-mono text-sm">
             {navLinks.map((link) => (
               <li key={link.href}>
