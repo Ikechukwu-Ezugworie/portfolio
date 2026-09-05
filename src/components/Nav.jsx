@@ -1,10 +1,36 @@
 import { useEffect, useState } from "react";
 import { navLinks, profile } from "../data/portfolio";
+import useTheme from "../hooks/useTheme";
+
+function ThemeToggle({ theme, onToggle, className = "" }) {
+  return (
+    <button
+      onClick={onToggle}
+      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      className={`inline-flex items-center justify-center rounded-md border border-border p-2 text-text-muted hover:text-accent hover:border-accent/50 transition-colors duration-200 ${className}`}
+    >
+      {theme === "dark" ? (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+            strokeLinecap="round"
+          />
+        </svg>
+      ) : (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+    </button>
+  );
+}
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -79,33 +105,39 @@ export default function Nav() {
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          onClick={(e) => {
-            e.preventDefault();
-            handleNavClick("#contact");
-          }}
-          className="hidden md:inline-flex items-center rounded-md border border-accent/40 px-4 py-1.5 font-mono text-sm text-accent hover:bg-accent hover:text-bg transition-colors duration-200"
-        >
-          Say hello
-        </a>
+        <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle theme={theme} onToggle={toggleTheme} />
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick("#contact");
+            }}
+            className="inline-flex items-center rounded-md border border-accent/40 px-4 py-1.5 font-mono text-sm text-accent hover:bg-accent hover:text-bg transition-colors duration-200"
+          >
+            Say hello
+          </a>
+        </div>
 
-        <button
-          className="md:hidden text-text p-2 -mr-2"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
-            </svg>
-          ) : (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M3 6h18M3 12h18M3 18h18" strokeLinecap="round" />
-            </svg>
-          )}
-        </button>
+        <div className="flex items-center gap-2 md:hidden -mr-2">
+          <ThemeToggle theme={theme} onToggle={toggleTheme} />
+          <button
+            className="text-text p-2"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 6h18M3 12h18M3 18h18" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
+        </div>
       </nav>
 
       {open && (
