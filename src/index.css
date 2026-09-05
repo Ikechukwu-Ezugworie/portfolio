@@ -111,3 +111,52 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent-dim);
 }
+
+/* Light mode: follows the visitor's OS/browser preference (prefers-color-scheme).
+   Placed last so these overrides win the cascade against the dark rules above. */
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: light;
+  }
+
+  :root {
+    --color-bg: #fbfaf8;
+    --color-bg-soft: #f2f0ec;
+    --color-surface: #ffffff;
+    --color-surface-hover: #f5f4f1;
+    --color-border: #dcd8d0;
+    --color-border-soft: #e8e5df;
+    --color-text: #1a1d21;
+    --color-text-muted: #565c66;
+    --color-text-dim: #8a909a;
+    --color-accent: #b5750e;
+    --color-accent-soft: #b5750e1a;
+    --color-accent-dim: #8a5a0a;
+    --color-teal: #157b71;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fbfaf8;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  }
+
+  .text-gradient {
+    background: linear-gradient(120deg, #b5750e 0%, #96650f 50%, #157b71 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+  }
+}
